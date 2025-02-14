@@ -8,10 +8,8 @@ public class MainArray {
         ArrayStorage storage = new ArrayStorage();
 
         // Создаем несколько резюме
-        Resume r1 = new Resume();
-        r1.SetUuid("uuid1");
-        Resume r2 = new Resume();
-        r2.SetUuid("uuid2");
+        Resume r1 = new Resume("uuid1");
+        Resume r2 = new Resume("uuid2");
 
         // Сохраняем резюме
         storage.save(r1);
