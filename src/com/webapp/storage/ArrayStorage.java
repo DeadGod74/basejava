@@ -9,9 +9,15 @@ public class ArrayStorage {
     private int size = 0;
 
     public void save(Resume resume) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(resume.getUuid())) {
+                System.out.println("Resume with UUID " + resume.getUuid() + "already exist");
+                return;
+            }
+        }
+
         if (size < storage.length) {
-            storage[size] = resume;
-            size++;
+            storage[size++] = resume;
         } else {
             System.out.println("Storage is full. Cannot save more resumes.");
         }
@@ -26,12 +32,21 @@ public class ArrayStorage {
         return null;
     }
 
+    public void update(Resume resume) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(resume.getUuid())) {
+                storage[i] = resume;
+                return;
+            }
+        }
+        System.out.println("Resume with UUID " + resume.getUuid() + " not found for update.");
+    }
+
     public void delete(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
-                storage[i] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
+                storage[i] = storage[--size];
+                storage[size] = null;
                 return;
             }
         }
