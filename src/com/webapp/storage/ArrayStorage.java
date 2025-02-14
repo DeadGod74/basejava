@@ -1,5 +1,8 @@
-import java.util.Arrays;
+package src.com.webapp.storage;
 
+import src.com.webapp.model.Resume;
+
+import java.util.Arrays;
 
 public class ArrayStorage {
     private Resume[] storage = new Resume[100];
@@ -32,7 +35,7 @@ public class ArrayStorage {
                 return;
             }
         }
-        System.out.println("Resume not found for deletion.");
+        System.out.println("src.com.webapp.model.Resume not found for deletion.");
     }
 
     public void clear() {
