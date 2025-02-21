@@ -2,67 +2,57 @@ package src.com.webapp.storage;
 
 import src.com.webapp.model.Resume;
 
-import java.util.Arrays;
+import java.util.Objects;
 
-public class ArrayStorage {
-    private Resume[] storage = new Resume[100];
-    private int size = 0;
+public class ArrayStorage extends AbstractArrayStorage{
 
     public void save(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(resume.getUuid())) {
-                System.out.println("Resume with UUID " + resume.getUuid() + "already exist");
-                return;
-            }
+        // Проверяем, существует ли уже резюме с таким UUID
+        if (getIndex(resume.getUuid()) >= 0){
+            System.out.println("Resume with UUID " + resume.getUuid() + "already exist");
+            return;
         }
-
-        if (size < storage.length) {
-            storage[size++] = resume;
-        } else {
+        // Проверяем, не превышен ли лимит хранилища
+        if (size >= storage_limit) {
             System.out.println("Storage is full. Cannot save more resumes.");
+            return;
         }
-    }
-
-    public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return storage[i];
-            }
-        }
-        return null;
+        // Сохраняем резюме в хранилище на текущей позиции размера
+        doSave(resume, size);
     }
 
     public void update(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(resume.getUuid())) {
-                storage[i] = resume;
-                return;
-            }
+        // Получаем индекс резюме по UUID
+        int index = getIndex(resume.getUuid());
+        // Если резюме найдено, обновляем его
+        if (index >= 0) {
+            doUpdate(resume, index);
+        } else {
+            // Если резюме не найдено, выводим сообщение
+            System.out.println("Resume with UUID " + resume.getUuid() + " not found for update.");
         }
-        System.out.println("Resume with UUID " + resume.getUuid() + " not found for update.");
     }
 
     public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                storage[i] = storage[--size];
-                storage[size] = null;
-                return;
+        // Получаем индекс резюме по UUID
+        int index = getIndex(uuid);
+        // Если резюме найдено, удаляем его
+        if (index >= 0) {
+            doDelete(index);
+        } else {
+            // Если резюме не найдено, выводим сообщение
+            System.out.println("src.com.webapp.model.Resume " + uuid + " not found for deletion.");
+        }
+    }
+
+    public int getIndex(String uuid) {
+        // Перебор всех элементов в массиве storage
+        for (int i=0; i < size; i++) {
+            // Проверяем, совпадает ли переданный uuid с uuid текущего резюме в массиве
+            if (Objects.equals(uuid, storage[i].getUuid())) {
+                return i;
             }
         }
-        System.out.println("src.com.webapp.model.Resume not found for deletion.");
-    }
-
-    public void clear() {
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
-    }
-
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
-    }
-
-    public int size() {
-        return size;
+        return -1;
     }
 }
