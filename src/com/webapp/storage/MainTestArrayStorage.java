@@ -2,6 +2,8 @@ package src.com.webapp.storage;
 
 import src.com.webapp.model.Resume;
 
+import java.util.Arrays;
+
 public class MainTestArrayStorage {
     public static void main(String[] args) {
         ArrayStorage storage = new ArrayStorage();
@@ -42,6 +44,8 @@ public class MainTestArrayStorage {
         // Попытка обновить несуществующее резюме
         Resume nonExistentResume = new Resume("uuid2");
         storage.update(nonExistentResume);
+
+
 
 
 
