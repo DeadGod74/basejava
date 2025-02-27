@@ -1,7 +1,13 @@
 package src.com.webapp.model;
 
+import java.util.UUID;
+
 public class Resume {
     private String uuid;
+
+    public Resume () {
+        this(UUID.randomUUID().toString());
+    }
 
     public Resume(String uuid) {
         this.uuid = uuid;
