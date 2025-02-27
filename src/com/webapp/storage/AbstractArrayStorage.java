@@ -1,5 +1,8 @@
 package src.com.webapp.storage;
 
+import src.com.webapp.exception.ExistStorageException;
+import src.com.webapp.exception.NotExistStorageException;
+import src.com.webapp.exception.StorageException;
 import src.com.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -16,9 +19,8 @@ public abstract class AbstractArrayStorage implements Storage{
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
-        if (index == -1) {
-            System.out.println("Resume" + uuid + " not exist");
-            return null;
+        if (index > 0) {
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
@@ -26,13 +28,11 @@ public abstract class AbstractArrayStorage implements Storage{
     public void save(Resume resume) {
         // Проверяем, существует ли уже резюме с таким UUID
         if (getIndex(resume.getUuid()) >= 0){
-            System.out.println("Resume with UUID " + resume.getUuid() + "already exist");
-            return;
+            throw new ExistStorageException(resume.getUuid());
         }
         // Проверяем, не превышен ли лимит хранилища
         if (size >= STORAGE_LIMIT) {
-            System.out.println("Storage is full. Cannot save more resumes.");
-            return;
+            throw new StorageException("Storage is full. Cannot save more resumes.", resume.getUuid());
         }
         // Сохраняем резюме в хранилище на текущей позиции размера
         doSave(resume, getIndex(resume.getUuid()));
@@ -49,7 +49,7 @@ public abstract class AbstractArrayStorage implements Storage{
             size--;
         } else {
             // Если резюме не найдено, выводим сообщение
-            System.out.println("src.com.webapp.model.Resume " + uuid + " not found for deletion.");
+            throw new NotExistStorageException(uuid);
         }
     }
 
@@ -61,7 +61,7 @@ public abstract class AbstractArrayStorage implements Storage{
             doUpdate(resume, index);
         } else {
             // Если резюме не найдено, выводим сообщение
-            System.out.println("Resume with UUID " + resume.getUuid() + " not found for update.");
+            throw new NotExistStorageException(resume.getUuid());
         }
     }
 
