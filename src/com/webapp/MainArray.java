@@ -9,28 +9,21 @@ public class MainArray {
 
     public static void main(String[] args) {
 
-        // Создаем несколько резюме
         final Resume r1 = new Resume("uuid1");
         final Resume r2 = new Resume("uuid2");
         final Resume r3 = new Resume("uuid3");
 
-        // Сохраняем резюме
         storage.save(r1);
         storage.save(r2);
 
-        // Получаем резюме
         System.out.println(storage.get("uuid1"));
 
-        // Удаляем резюме
         storage.delete("uuid1");
 
-        // Проверяем размер
         System.out.println(storage.size());
 
-        // Очищаем хранилище
         storage.clear();
 
-        // Проверяем размер после очистки
         System.out.println(storage.size());
     }
 }

@@ -6,9 +6,6 @@ import src.com.webapp.exception.NotExistStorageException;
 import src.com.webapp.model.Resume;
 
 import java.util.Arrays;
-import java.util.UUID;
-
-import static org.junit.Assert.*;
 
 public abstract class AbstractArrayStorageTest {
 
@@ -59,6 +56,7 @@ public abstract class AbstractArrayStorageTest {
     @org.junit.Test
     public void delete() {
         storage.delete(UUID_1);
+        System.out.println("Size after deletion: " + storage.size());
         Assert.assertEquals(2, storage.size());
         Assert.assertThrows(NotExistStorageException.class, () -> storage.get(UUID_1));
     }
