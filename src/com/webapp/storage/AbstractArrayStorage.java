@@ -26,13 +26,14 @@ public abstract class AbstractArrayStorage implements Storage{
     }
 
     public final void save(Resume resume) {
-        if (getIndex(resume.getUuid()) >= 0){
+        int index = getIndex(resume.getUuid());
+        if (index >= 0){
             throw new ExistStorageException(resume.getUuid());
         }
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage is full. Cannot save more resumes.", resume.getUuid());
         }
-        doSave(resume, getIndex(resume.getUuid()));
+        doSave(resume, index);
         size++;
     }
 
