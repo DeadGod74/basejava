@@ -16,7 +16,6 @@ public class Resume {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-
         Resume resume = (Resume) o;
         return uuid.equals(resume.uuid);
     }
@@ -37,5 +36,8 @@ public class Resume {
     @Override
     public String toString() {
         return uuid;
+    }
+
+    public void setName(String updatedName) {
     }
 }

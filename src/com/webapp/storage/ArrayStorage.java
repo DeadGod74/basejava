@@ -7,9 +7,7 @@ import java.util.Objects;
 public class ArrayStorage extends AbstractArrayStorage{
 
     public int getIndex(String uuid) {
-        // Перебор всех элементов в массиве storage
         for (int i=0; i < size; i++) {
-            // Проверяем, совпадает ли переданный uuid с uuid текущего резюме в массиве
             if (Objects.equals(uuid, storage[i].getUuid())) {
                 return i;
             }

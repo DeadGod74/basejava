@@ -17,60 +17,51 @@ public abstract class AbstractArrayStorage implements Storage{
         return size;
     }
 
-    public Resume get(String uuid) {
+    public final Resume get(String uuid) {
         int index = getIndex(uuid);
-        if (index > 0) {
+        if (index == -1) {
             throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
 
-    public void save(Resume resume) {
-        // Проверяем, существует ли уже резюме с таким UUID
+    public final void save(Resume resume) {
         if (getIndex(resume.getUuid()) >= 0){
             throw new ExistStorageException(resume.getUuid());
         }
-        // Проверяем, не превышен ли лимит хранилища
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage is full. Cannot save more resumes.", resume.getUuid());
         }
-        // Сохраняем резюме в хранилище на текущей позиции размера
         doSave(resume, getIndex(resume.getUuid()));
         size++;
     }
 
-    public void delete(String uuid) {
-        // Получаем индекс резюме по UUID
+    public final void delete(String uuid) {
         int index = getIndex(uuid);
-        // Если резюме найдено, удаляем его
         if (index >= 0) {
             doDelete(index);
             storage[size-1] = null;
             size--;
         } else {
-            // Если резюме не найдено, выводим сообщение
             throw new NotExistStorageException(uuid);
         }
     }
 
-    public void update(Resume resume) {
-        // Получаем индекс резюме по UUID
+    public final void update(Resume resume) {
         int index = getIndex(resume.getUuid());
-        // Если резюме найдено, обновляем его
         if (index >= 0) {
             doUpdate(resume, index);
         } else {
-            // Если резюме не найдено, выводим сообщение
             throw new NotExistStorageException(resume.getUuid());
         }
     }
 
-    public void clear() {
+    public final void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
-    public Resume[] getAll() {
+    public final Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
