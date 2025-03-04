@@ -59,6 +59,7 @@ public abstract class AbstractArrayStorageTest {
     @org.junit.Test
     public void delete() {
         storage.delete(UUID_1);
+        System.out.println("Size after deletion: " + storage.size());
         Assert.assertEquals(2, storage.size());
         Assert.assertThrows(NotExistStorageException.class, () -> storage.get(UUID_1));
     }
