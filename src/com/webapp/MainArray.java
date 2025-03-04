@@ -12,6 +12,7 @@ public class MainArray {
         // Создаем несколько резюме
         final Resume r1 = new Resume("uuid1");
         final Resume r2 = new Resume("uuid2");
+        final Resume r3 = new Resume("uuid3");
 
         // Сохраняем резюме
         storage.save(r1);

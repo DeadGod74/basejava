@@ -10,25 +10,24 @@ public class SortedArrayStorage extends AbstractArrayStorage{
     protected void doSave(Resume resume, int index) {
         int insertIndex = -index - 1;
         System.arraycopy(storage, index, storage, index + 1, size - insertIndex);
-        storage[index] = resume; // Вставляем резюме
+        storage[index] = resume;
     }
 
 
     @Override
     protected void doUpdate(Resume resume, int index) {
-        storage[index] = resume; // Обновляем резюме по индексу
+        storage[index] = resume;
     }
 
 
     @Override
     protected void doDelete(int index) {
         System.arraycopy(storage, index + 1, storage, index, size - index - 1);
-        storage[--size] = null; // Очищаем ссылку на последний элемент
+        storage[--size] = null;
     }
 
     @Override
     public int getIndex(String uuid) {
-        // Используем бинарный поиск для получения индекса резюме по UUID
         return Arrays.binarySearch(storage, 0, size, new Resume(uuid));
     }
 }
