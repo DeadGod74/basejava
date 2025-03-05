@@ -15,6 +15,11 @@ public class ArrayStorage extends AbstractArrayStorage{
         return -1;
     }
 
+    @Override
+    public int getCapacity() {
+        return 0;
+    }
+
     protected void doSave(Resume resume, int index) {
         storage[size] = resume;
     }
