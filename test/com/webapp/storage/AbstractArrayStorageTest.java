@@ -119,10 +119,11 @@ public abstract class AbstractArrayStorageTest {
 
     @org.junit.Test(expected = StorageException.class)
     public void saveOverflow() {
-        int capacity = storage.getCapacity();
+        int capacity = 3;
         for (int i = 0; i < capacity; i++) {
             storage.save(new Resume("uuid" + i));
         }
         storage.save(new Resume("overflowUuid"));
     }
+
 }
