@@ -1,8 +1,8 @@
-package src.com.webapp;
+package com.webapp;
 
-import src.com.webapp.model.Resume;
-import src.com.webapp.storage.ArrayStorage;
-import src.com.webapp.storage.Storage;
+import com.webapp.model.Resume;
+import com.webapp.storage.ArrayStorage;
+import com.webapp.storage.Storage;
 
 public class MainArray {
     private final static Storage storage = new ArrayStorage();
