@@ -1,4 +1,4 @@
-package src.com.webapp;
+package com.webapp;
 
 public class MainString {
     public static void main(String[] args) {

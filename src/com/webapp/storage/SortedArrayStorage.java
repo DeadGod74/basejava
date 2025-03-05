@@ -1,6 +1,6 @@
-package src.com.webapp.storage;
+package com.webapp.storage;
 
-import src.com.webapp.model.Resume;
+import com.webapp.model.Resume;
 
 import java.util.Arrays;
 
