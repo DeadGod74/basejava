@@ -109,6 +109,7 @@ public abstract class AbstractArrayStorageTest {
 
     @org.junit.Test
     public void fillStorage() {
+        storage.clear();
         int capacity = storage.getCapacity();
         for (int i = 0; i < capacity; i++) {
             storage.save(new Resume("uuid" + i));
