@@ -18,6 +18,9 @@ public class MainReflection {
         Method toStringMethod = r.getClass().getMethod("toString");
         String result = toStringMethod.invoke(r).toString();
         System.out.println("Result of toString() " + result);
+        System.out.println('5' - 3);
+        System.out.println('5' + 3);
+        System.out.println('5' + -3);
     }
 
 }
