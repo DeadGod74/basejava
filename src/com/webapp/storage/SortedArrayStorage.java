@@ -30,4 +30,9 @@ public class SortedArrayStorage extends AbstractArrayStorage{
     public int getIndex(String uuid) {
         return Arrays.binarySearch(storage, 0, size, new Resume(uuid));
     }
+
+    @Override
+    public int getCapacity() {
+        return 0;
+    }
 }
