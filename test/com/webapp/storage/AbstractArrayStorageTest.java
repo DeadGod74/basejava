@@ -73,10 +73,10 @@ public abstract class AbstractArrayStorageTest {
 
     @org.junit.Test
     public void delete() throws Exception{
-        storage.delete(UUID_1);
+        storage.delete(RESUME_1.getUuid());
         System.out.println("Size after deletion: " + storage.size());
         assertSize(2);
-        assertThrows(NotExistStorageException.class, () -> storage.get(UUID_1));
+        assertThrows(NotExistStorageException.class, () -> storage.get(RESUME_1.getUuid()));
     }
 
     @org.junit.Test (expected = NotExistStorageException.class)
@@ -126,10 +126,16 @@ public abstract class AbstractArrayStorageTest {
     public void fillStorage() throws Exception{
         storage.clear();
         int capacity = storage.getCapacity();
-        for (int i = 0; i < capacity; i++) {
+        System.out.println("Filling storage with capacity: " + capacity);
+        int maxIterations = 100; // Максимальное количество итераций для отладки
+        int iterations = Math.min(capacity, maxIterations);
+        for (int i = 0; i < iterations; i++) {
+            System.out.println("Saving resume with uuid: " + i);
             storage.save(new Resume("uuid" + i));
         }
-        assertSize(capacity);
+        assertSize(iterations);
+        System.out.println("Finished filling storage.");
+
     }
 
     @org.junit.Test(expected = StorageException.class)

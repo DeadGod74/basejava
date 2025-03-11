@@ -1,13 +1,9 @@
 package com.webapp.storage;
-
-import com.webapp.exception.ExistStorageException;
-import com.webapp.exception.NotExistStorageException;
-import com.webapp.exception.StorageException;
 import com.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public abstract class AbstractArrayStorage implements Storage{
+public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
 
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -17,48 +13,15 @@ public abstract class AbstractArrayStorage implements Storage{
         return size;
     }
 
-    public final Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index == -1) {
-            throw new NotExistStorageException(uuid);
-        }
-        return storage[index];
+    @Override
+    public int getCapacity() {
+        return STORAGE_LIMIT;
     }
+    protected abstract void doSave(Resume resume, int index);
 
-    public final void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index >= 0){
-            throw new ExistStorageException(resume.getUuid());
-        }
-        if (size >= STORAGE_LIMIT) {
-            throw new StorageException("Storage is full. Cannot save more resumes.", resume.getUuid());
-        }
-        doSave(resume, index);
-        size++;
-    }
+    protected abstract void doDelete(int index);
 
-    public final void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index >= 0) {
-            // Удаляем элемент, сдвигая элементы массива
-            for (int i = index; i < size - 1; i++) {
-                storage[i] = storage[i + 1];
-            }
-            storage[size - 1] = null; // Обнуляем последний элемент
-            size--; // Уменьшаем размер
-        } else {
-            throw new NotExistStorageException(uuid);
-        }
-    }
-
-    public final void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index >= 0) {
-            doUpdate(resume, index);
-        } else {
-            throw new NotExistStorageException(resume.getUuid());
-        }
-    }
+    protected abstract void doUpdate(Resume resume, int index);
 
     public final void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -69,12 +32,13 @@ public abstract class AbstractArrayStorage implements Storage{
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    public abstract int getIndex(String uuid);
-
-    protected abstract void doSave(Resume resume, int index);
-
-    protected abstract void doUpdate(Resume resume, int index);
-
-    protected abstract void doDelete(int index);
+    public int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
 }

@@ -6,27 +6,24 @@ import java.util.Objects;
 
 public class ArrayStorage extends AbstractArrayStorage{
 
-    public int getIndex(String uuid) {
-        for (int i=0; i < size; i++) {
-            if (Objects.equals(uuid, storage[i].getUuid())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     @Override
     public int getCapacity() {
-        return 0;
+        return storage.length;
     }
 
     protected void doSave(Resume resume, int index) {
         storage[size] = resume;
+        size++;
     }
 
     protected void doDelete(int index) {
         storage[index] = storage[--size];
         storage[size] = null;
+    }
+
+    @Override
+    protected Resume doGet(int index) {
+        return storage[index];
     }
 
     protected void doUpdate(Resume resume, int index) {
