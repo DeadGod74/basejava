@@ -35,10 +35,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     public int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
-                return i; // Возвращаем индекс, если найдено
+                return i;
             }
         }
-        return -1; // Если резюме не найдено, возвращаем -1
+        return -1;
     }
 
 }

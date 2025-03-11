@@ -6,12 +6,12 @@ import com.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
-    public final Resume get(String uuid) {
+    public Resume get(String uuid) {
         int index = getIndexAndCheckNotExistence(uuid);
         return doGet(index);
     }
 
-    public final void save(Resume resume) {
+    public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
         checkExistence(resume.getUuid(), index);
         doSave(resume, index);
@@ -22,7 +22,7 @@ public abstract class AbstractStorage implements Storage {
         doDelete(index);
     }
 
-    public final void update(Resume resume) {
+    public void update(Resume resume) {
         int index = getIndexAndCheckNotExistence(resume.getUuid());
         doUpdate(resume, index);
     }
@@ -43,7 +43,6 @@ public abstract class AbstractStorage implements Storage {
             throw new ExistStorageException(uuid);
         }
     }
-
 
     protected abstract void doSave(Resume resume, int index);
 
