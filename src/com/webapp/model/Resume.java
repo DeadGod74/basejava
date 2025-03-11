@@ -1,8 +1,9 @@
 package com.webapp.model;
 
+import java.util.Objects;
 import java.util.UUID;
 
-public class Resume {
+public class Resume implements Comparable<Resume> {
     private String uuid;
 
     public Resume () {
@@ -14,15 +15,21 @@ public class Resume {
     }
 
     @Override
+    public int compareTo(Resume other) {
+        return this.uuid.compareTo(other.uuid); // Сравнение по UUID
+    }
+
+    @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;
+        if (!(o instanceof Resume)) return false;
         Resume resume = (Resume) o;
         return uuid.equals(resume.uuid);
     }
 
     @Override
     public int hashCode() {
-        return uuid.hashCode();
+        return Objects.hash(uuid);
     }
 
     public String getUuid() {
