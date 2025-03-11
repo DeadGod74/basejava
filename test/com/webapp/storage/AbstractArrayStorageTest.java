@@ -20,6 +20,7 @@ public abstract class AbstractArrayStorageTest {
     protected static final Resume RESUME_2 = new Resume(UUID_2);
     protected static final Resume RESUME_3 = new Resume(UUID_3);
     protected static final Resume RESUME_4 = new Resume(UUID_4);
+    private final String dummy = "dummy";
 
 
     protected AbstractArrayStorageTest(Storage storage) {
@@ -56,7 +57,7 @@ public abstract class AbstractArrayStorageTest {
 
     @org.junit.Test (expected = NotExistStorageException.class)
     public void getNotExist() throws Exception {
-        storage.get("dummy");
+        storage.get(dummy);
     }
 
     @org.junit.Test
@@ -81,7 +82,7 @@ public abstract class AbstractArrayStorageTest {
 
     @org.junit.Test (expected = NotExistStorageException.class)
     public void deleteNotExist() throws Exception {
-        storage.delete("dummy");
+        storage.delete(dummy);
     }
 
     @org.junit.Test
@@ -93,7 +94,7 @@ public abstract class AbstractArrayStorageTest {
 
     @org.junit.Test (expected = NotExistStorageException.class)
     public void updateNotExist() throws Exception {
-        storage.get("dummy");
+        storage.get(dummy);
     }
 
     @org.junit.Test
@@ -118,7 +119,7 @@ public abstract class AbstractArrayStorageTest {
         int index = storage.getIndex(UUID_2);
         Assert.assertTrue(index >= 0);
         assertGet(storage.get(UUID_2));
-        int notExistIndex = storage.getIndex("dummy");
+        int notExistIndex = storage.getIndex(dummy);
         assertEquals(-1, notExistIndex);
     }
 
