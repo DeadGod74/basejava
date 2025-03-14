@@ -2,32 +2,40 @@ package com.webapp.storage;
 
 import com.webapp.model.Resume;
 
-import java.util.Objects;
-
 public class ArrayStorage extends AbstractArrayStorage{
+
+    @Override
+    public int getIndex(String uuid) {
+        return 0;
+    }
 
     @Override
     public int getCapacity() {
         return storage.length;
     }
 
-    protected void doSave(Resume resume, int index) {
-        storage[size] = resume;
-        size++;
-    }
-
-    protected void doDelete(int index) {
-        storage[index] = storage[--size];
-        storage[size] = null;
+    @Override
+    protected void fillDeletedElement(int index) {
+        storage[index] = storage[size - 1];
     }
 
     @Override
-    protected Resume doGet(int index) {
-        return storage[index];
+    protected void insertElement(Resume r, int index) {
+        storage[size] = r;
     }
 
-    protected void doUpdate(Resume resume, int index) {
-        storage[index] = resume;
+    @Override
+    protected void doUpdate(Resume resume, Object searchKey) {
+
+    }
+
+    public Integer getSearchKey(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (uuid.equals(storage[i].getUuid())) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }
