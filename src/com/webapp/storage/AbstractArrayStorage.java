@@ -1,4 +1,5 @@
 package com.webapp.storage;
+import com.webapp.exception.StorageException;
 import com.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -17,11 +18,33 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     public int getCapacity() {
         return STORAGE_LIMIT;
     }
-    protected abstract void doSave(Resume resume, int index);
 
-    protected abstract void doDelete(int index);
+    @Override
+    protected void doSave(Resume resume, Object index) {
+        if (size == STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow", resume.getUuid());
+        } else {
+            insertElement(resume, (Integer) index);
+            size++;
+        }
+    }
 
-    protected abstract void doUpdate(Resume resume, int index);
+    @Override
+    public void doDelete(Object index) {
+        fillDeletedElement((Integer) index);
+        storage[size - 1] = null;
+        size--;
+    }
+
+    public Resume doGet(Object index) {
+        return storage[(Integer) index];
+    }
+
+
+    @Override
+    public boolean isExist(Object index) {
+        return (Integer) index >= 0;
+    }
 
     public final void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -32,13 +55,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    public int getIndex(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+
+    protected abstract void fillDeletedElement(int index);
+
+    protected abstract void insertElement(Resume r, int index);
+
+    public abstract Integer getSearchKey(String uuid);
 
 }

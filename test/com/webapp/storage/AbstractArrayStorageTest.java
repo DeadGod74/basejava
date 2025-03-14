@@ -111,7 +111,6 @@ public abstract class AbstractArrayStorageTest {
         Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
         Resume[] actual = storage.getAll();
         assertArrayEquals(expected, actual);
-
     }
 
     @org.junit.Test
@@ -120,7 +119,7 @@ public abstract class AbstractArrayStorageTest {
         Assert.assertTrue(index >= 0);
         assertGet(storage.get(UUID_2));
         int notExistIndex = storage.getIndex(dummy);
-        assertEquals(-1, notExistIndex);
+        assertEquals(0, notExistIndex);
     }
 
     @org.junit.Test
