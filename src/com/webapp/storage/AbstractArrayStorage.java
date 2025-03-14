@@ -2,7 +2,10 @@ package com.webapp.storage;
 import com.webapp.exception.StorageException;
 import com.webapp.model.Resume;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
@@ -51,14 +54,24 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public final Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+    public final List<Resume> getAll() {
+        List<Resume> resumes = new ArrayList<>(size); // Создаем новый список
+        for (int i = 0; i < size; i++) {
+            resumes.add(storage[i]);
+        }
+        Collections.sort(resumes);
+        return resumes;
     }
 
+    public final List<Resume> getAllSorted() {
+        List<Resume> resumes = getAll();
+        Collections.sort(resumes);
+        return resumes;
+    }
 
     protected abstract void fillDeletedElement(int index);
 
-    protected abstract void insertElement(Resume r, int index);
+    protected abstract void insertElement(Resume resume, int index);
 
     public abstract Integer getSearchKey(String uuid);
 

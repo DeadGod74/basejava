@@ -1,6 +1,9 @@
 package com.webapp.storage;
 
+import com.webapp.exception.StorageException;
 import com.webapp.model.Resume;
+
+import java.util.List;
 
 public class ArrayStorage extends AbstractArrayStorage{
 
@@ -20,8 +23,8 @@ public class ArrayStorage extends AbstractArrayStorage{
     }
 
     @Override
-    protected void insertElement(Resume r, int index) {
-        storage[size] = r;
+    protected void insertElement(Resume resume, int index) {
+        storage[size] = resume;
     }
 
     @Override
@@ -36,6 +39,15 @@ public class ArrayStorage extends AbstractArrayStorage{
             }
         }
         return -1;
+    }
+
+    @Override
+    public void save(Resume resume) {
+        if (size >= STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow");
+        }
+        storage[size] = resume;
+        size++;
     }
 
 }

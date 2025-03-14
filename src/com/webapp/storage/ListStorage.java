@@ -3,11 +3,13 @@ package com.webapp.storage;
 import com.webapp.model.Resume;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage{
 
-    private List<Resume> list = new ArrayList<>();
+    private final List<Resume> list = new ArrayList<>();
 
     @Override
     protected void doSave(Resume resume, Object searchKey) {
@@ -46,9 +48,17 @@ public class ListStorage extends AbstractStorage{
         list.clear();
     }
 
-    @Override
-    public Resume[] getAll() {
-        return list.toArray(new Resume[0]);
+    public List<Resume> getAll() {
+        List<Resume> sortedList = new ArrayList<>(list);
+        Collections.sort(sortedList);
+        return sortedList;
+    }
+
+    public List<Resume> getAllSorted() {
+        return list.stream()
+                .sorted(Comparator.comparing(Resume::getFullName)
+                        .thenComparing(Resume::getUuid))
+                .toList();
     }
 
     @Override

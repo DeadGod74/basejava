@@ -4,17 +4,22 @@ import com.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapStorage extends AbstractStorage {
-    private Map<String, Resume> map = new LinkedHashMap<>();
+public class NameMapStorage extends AbstractStorage {
+    private final Map<String, Resume> map = new LinkedHashMap<>();
 
     @Override
-    public String getSearchKey(String uuid) {
-        return uuid;
+    public String getSearchKey(String name) {
+        for (Resume resume : map.values()) {
+            if (resume.getFullName().equalsIgnoreCase(name)) {
+                return resume.getUuid();
+            }
+        }
+        return null;
     }
 
     @Override
     protected void doUpdate(Resume resume, Object searchKey) {
-        map.put((String) searchKey, resume);
+        map.put(resume.getUuid(), resume);
     }
 
     @Override
@@ -24,7 +29,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void doSave(Resume resume, Object searchKey) {
-        map.put((String) searchKey, resume);
+        map.put(resume.getUuid(), resume);
     }
 
     @Override
@@ -53,8 +58,9 @@ public class MapStorage extends AbstractStorage {
         return map.values().stream()
                 .sorted(Comparator.comparing(Resume::getFullName)
                         .thenComparing(Resume::getUuid))
-                .toList();
+                .toList(); 
     }
+
 
     @Override
     public int size() {
