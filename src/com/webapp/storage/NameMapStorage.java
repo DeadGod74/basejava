@@ -58,7 +58,7 @@ public class NameMapStorage extends AbstractStorage {
         return map.values().stream()
                 .sorted(Comparator.comparing(Resume::getFullName)
                         .thenComparing(Resume::getUuid))
-                .toList(); 
+                .toList();
     }
 
 
@@ -69,7 +69,7 @@ public class NameMapStorage extends AbstractStorage {
 
     @Override
     public int getIndex(String uuid) {
-        return 0;
+        return -1;
     }
 
     @Override

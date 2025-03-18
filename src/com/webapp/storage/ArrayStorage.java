@@ -3,13 +3,11 @@ package com.webapp.storage;
 import com.webapp.exception.StorageException;
 import com.webapp.model.Resume;
 
-import java.util.List;
-
 public class ArrayStorage extends AbstractArrayStorage{
 
     @Override
     public int getIndex(String uuid) {
-        return 0;
+        return -1;
     }
 
     @Override
@@ -29,16 +27,16 @@ public class ArrayStorage extends AbstractArrayStorage{
 
     @Override
     protected void doUpdate(Resume resume, Object searchKey) {
-
+        storage[(Integer) searchKey] = resume;
     }
 
     public Integer getSearchKey(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
+            if (storage[i].getUuid().equals(uuid)) {
                 return i;
             }
         }
-        return -1;
+        return -1; 
     }
 
     @Override
@@ -49,5 +47,4 @@ public class ArrayStorage extends AbstractArrayStorage{
         storage[size] = resume;
         size++;
     }
-
 }
