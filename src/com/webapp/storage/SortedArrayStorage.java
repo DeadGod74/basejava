@@ -3,7 +3,6 @@ package com.webapp.storage;
 import com.webapp.model.Resume;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
@@ -35,6 +34,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public int getIndex(String uuid) {
-        return 0;
+        return -1;
     }
 }

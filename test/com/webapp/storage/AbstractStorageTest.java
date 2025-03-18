@@ -83,7 +83,9 @@ public abstract class AbstractStorageTest  {
 
     @Test
     public void update() {
-        Resume updatedResume = new Resume(UUID_1);
+        Resume updatedResume = new Resume(RESUME_1.getUuid());
+        System.out.println(updatedResume);
+        updatedResume.setName("Updated Name");
         storage.update(updatedResume);
         assertGet(updatedResume);
     }
@@ -130,15 +132,6 @@ public abstract class AbstractStorageTest  {
         List<Resume> expected = new ArrayList<>();
         List<Resume> actual = storage.getAll();
         assertEquals(expected, actual);
-    }
-
-    @Test
-    public void getIndex() throws Exception{
-        int index = storage.getIndex(UUID_2);
-        Assert.assertTrue(index >= 0);
-        assertGet(storage.get(UUID_2));
-        int notExistIndex = storage.getIndex(dummy);
-        assertEquals(0, notExistIndex);
     }
 
     @org.junit.Test

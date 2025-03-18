@@ -27,16 +27,21 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else {
-            insertElement(resume, (Integer) index);
+            insertElement(resume, size);
             size++;
         }
     }
 
     @Override
     public void doDelete(Object index) {
-        fillDeletedElement((Integer) index);
-        storage[size - 1] = null;
+        int idx = (Integer) index;
+        if (idx < 0 || idx >= size) {
+            throw new StorageException("Invalid index for deletion", null);
+        }
+        fillDeletedElement(idx);
+        storage[size - 1] = null; // Удаляем последний элемент
         size--;
+
     }
 
     public Resume doGet(Object index) {

@@ -63,7 +63,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public int getIndex(String uuid) {
-        return 0;
+        return -1;
     }
 
     @Override
