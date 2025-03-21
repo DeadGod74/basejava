@@ -7,38 +7,34 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage{
+public class ListStorage extends AbstractStorage<Integer>{
 
     private final List<Resume> list = new ArrayList<>();
 
     @Override
-    protected void doSave(Resume resume, Object searchKey) {
+    protected void doSave(Resume resume, Integer searchKey) {
         list.add(resume);
     }
 
     @Override
-    protected void doUpdate(Resume resume, Object searchKey) {
-        int index = (Integer) searchKey;
-        list.set(index, resume);
+    protected void doUpdate(Resume resume, Integer searchKey) {
+        list.set(searchKey, resume);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        int index = (Integer) searchKey;
-        list.remove(index);
+    protected void doDelete(Integer searchKey) {
+        list.remove(searchKey.intValue());
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        int index = (Integer) searchKey;
-        return list.get(index);
+    protected Resume doGet(Integer searchKey) {
+        return list.get(searchKey);
     }
 
     @Override
-    public boolean isExist(Object searchKey) {
-        if (searchKey instanceof Integer) { // Проверяем тип searchKey
-            int index = (Integer) searchKey; // Приводим к Integer
-            return index >= 0 && index < list.size(); // Проверяем существование индекса
+    public boolean isExist(Integer searchKey) {
+        if (searchKey != null) {
+            return searchKey >= 0 && searchKey < list.size();
         }
         return false;
     }
