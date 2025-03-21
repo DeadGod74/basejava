@@ -1,6 +1,6 @@
 package com.webapp.model;
 
-public enum TypeContact {
+public enum ContactType {
     PHONE("Телефон"),
     SKYPE("Skype"),
     MAIL("Электронная почта"),
@@ -9,14 +9,9 @@ public enum TypeContact {
     PROFILE_STACKOVERFLOW("Профиль Stackoverflow"),
     HOME_PAGE("Домашняя страница");
 
-
-
-
-
-
     private String title;
 
-    TypeContact(String title) {
+    ContactType(String title) {
         this.title = title;
     }
 
