@@ -26,8 +26,8 @@ public class ArrayStorage extends AbstractArrayStorage{
     }
 
     @Override
-    protected void doUpdate(Resume resume, Object searchKey) {
-        storage[(Integer) searchKey] = resume;
+    protected void doUpdate(Resume resume, Integer searchKey) {
+        storage[searchKey] = resume;
     }
 
     public Integer getSearchKey(String uuid) {
