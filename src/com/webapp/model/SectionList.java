@@ -1,10 +1,15 @@
 package com.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class SectionList extends Section{
-    private List<String> list;
+    private final List<String> list;
+
+    public SectionList(String... list) {
+        this(Arrays.asList(list));
+    }
 
     public SectionList(List<String> list) {
         this.list = list;
