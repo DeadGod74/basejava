@@ -33,7 +33,6 @@ public class SectionList extends Section{
         return Objects.equals(list, section.list);
     }
 
-
     @Override
     public int hashCode() {
         return list != null ? list.hashCode() : 0;

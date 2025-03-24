@@ -10,24 +10,19 @@ public class Resume implements Comparable<Resume> {
     private Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume() {}
-
-    // Конструктор с полным именем
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
     }
 
-    // Конструктор с uuid и полным именем
     public Resume(String uuid, String fullName) {
         this.uuid = uuid;
         this.fullName = fullName;
     }
 
-    // Получение контакта по типу
     public String getContact(ContactType contact) {
         return contacts.get(contact);
     }
 
-    // Получение секции по типу
     public Section getSection(SectionType section) {
         return sections.get(section);
     }
@@ -37,17 +32,14 @@ public class Resume implements Comparable<Resume> {
         contacts.put(contactType, contactValue);
     }
 
-    // Установка секции
     public void setSection(SectionType sectionType, Section section) {
         sections.put(sectionType, section);
     }
 
-    // Получение всех контактов
     public Map<ContactType, String> getContacts() {
         return contacts;
     }
 
-    // Получение всех секций
     public Map<SectionType, Section> getSections() {
         return sections;
     }
@@ -70,7 +62,6 @@ public class Resume implements Comparable<Resume> {
         return Objects.hash(uuid);
     }
 
-    // Геттеры и сеттеры
     public String getUuid() {
         return uuid;
     }

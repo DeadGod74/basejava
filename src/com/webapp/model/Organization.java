@@ -10,7 +10,6 @@ public class Organization {
     private Link homePage;
     private List<Position> positions = new ArrayList<>();
 
-    // Конструктор без параметров для Jackson
     public Organization() {
         this.homePage = null;
         this.positions = new ArrayList<>();
@@ -56,17 +55,15 @@ public class Organization {
         return homePage;
     }
 
-    // Вложенный класс Position
     public static class Position {
         private LocalDate startDate;
         private LocalDate endDate;
         private String title;
         private String description;
 
-        // Конструктор без параметров для Jackson
         public Position() {
-            this.startDate = LocalDate.now(); // или другое значение по умолчанию
-            this.endDate = LocalDate.now(); // или другое значение по умолчанию
+            this.startDate = LocalDate.now();
+            this.endDate = LocalDate.now();
             this.title = "";
             this.description = "";
         }

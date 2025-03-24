@@ -30,7 +30,6 @@ public class SectionText extends Section{
         return Objects.equals(text, section.text);
     }
 
-
     @Override
     public int hashCode() {
         return text != null ? text.hashCode() : 0;
