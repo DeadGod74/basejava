@@ -1,9 +1,13 @@
 package com.webapp.model;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class SectionText extends Section{
     private String text;
+
+    public SectionText() {}
 
     public SectionText(String text) {
         this.text = text;
@@ -32,4 +36,8 @@ public class SectionText extends Section{
         return text != null ? text.hashCode() : 0;
     }
 
+    @Override
+    public List<Organization> getContent() {
+        return Collections.emptyList();
+    }
 }
