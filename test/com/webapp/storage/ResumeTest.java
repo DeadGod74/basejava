@@ -24,6 +24,19 @@ public class ResumeTest {
         List<Resume> resumes = objectMapper.readValue(inputStream, new TypeReference<List<Resume>>() {});
         assertEquals(2, resumes.size());
 
+        for (Resume resume : resumes) {
+            System.out.println("UUID: " + resume.getUuid());
+            System.out.println("Full Name: " + resume.getFullName());
+            System.out.println("Contacts: " + resume.getContacts());
+
+            for (SectionType sectionType : SectionType.values()) {
+                Section section = resume.getSections().get(sectionType);
+                if (section != null) {
+                    System.out.println(sectionType + ": " + section);
+                }
+            }
+        }
+
         assertEquals("1", resumes.get(0).getUuid());
         assertEquals("John Doe", resumes.get(0).getFullName());
         assertEquals("+1234567890", resumes.get(0).getContacts().get(ContactType.PHONE));
