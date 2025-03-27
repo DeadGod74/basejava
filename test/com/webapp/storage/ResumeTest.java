@@ -58,7 +58,7 @@ public class ResumeTest {
                 LocalDate endDate = position.getEndDate();
                 assertFalse(endDate.isBefore(startDate),
                         String.format("End date %s is before start date %s for position %s at %s",
-                                endDate, startDate, position.getTitle(), organization.getHomePage().getName()));
+                                endDate, startDate, position.getTitle(), organization.getnameOrg()));
             }
         }
 
@@ -69,7 +69,7 @@ public class ResumeTest {
                 LocalDate endDate = position.getEndDate();
                 assertFalse(endDate.isBefore(startDate),
                         String.format("End date %s is before start date %s for degree %s at %s",
-                                endDate, startDate, position.getTitle(), organization.getHomePage().getName()));
+                                endDate, startDate, position.getTitle(), organization.getnameOrg()));
             }
         }
         inputStream.close();

@@ -1,5 +1,7 @@
 package com.webapp.model;
 
+import com.webapp.util.DateUtil;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -7,30 +9,34 @@ import java.util.List;
 import java.util.Objects;
 
 public class Organization {
-    private final Link homePage;
+    private final String nameOrg;
+    private final String website;
     private List<Position> positions = new ArrayList<>();
     private List<Period> periods = new ArrayList<>();
 
     public Organization() {
-        this.homePage = null;
+        this.nameOrg = null;
+        this.website = null;
         this.positions = new ArrayList<>();
         this.periods = new ArrayList<>();
     }
 
     public Organization(String name, String url, Position... positions) {
-        this(new Link(name, url), List.of(positions));
+        this(name, url, List.of(positions));
     }
 
-    public Organization(Link homePage, List<Position> positions) {
-        this.homePage = homePage;
+    public Organization(String name, String url, List<Position> positions) {
+        this.nameOrg = Objects.requireNonNull(name, "name must not be null");
+        this.website = Objects.requireNonNull(url, "website must not be null");
         this.positions = List.copyOf(positions);
         this.periods = new ArrayList<>();
     }
 
-    public Organization(Link homePage, List<Position> positions, List<Period> periods) {
-        this.homePage = homePage;
+    public Organization(String name, String url, List<Position> positions, List<Period> periods) {
+        this.nameOrg = Objects.requireNonNull(name, "name must not be null");
+        this.website = Objects.requireNonNull(url, "website must not be null");
         this.positions = List.copyOf(positions);
-        this.periods = List.copyOf(periods); // Инициализация списка периодов
+        this.periods = List.copyOf(periods);
     }
 
     @Override
@@ -38,12 +44,13 @@ public class Organization {
         if (o == null || getClass() != o.getClass()) return false;
 
         Organization that = (Organization) o;
-        return Objects.equals(homePage, that.homePage) && Objects.equals(positions, that.positions) && Objects.equals(periods, that.periods);
+        return Objects.equals(nameOrg, that.nameOrg) && Objects.equals(website, that.website) && Objects.equals(positions, that.positions) && Objects.equals(periods, that.periods);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(homePage);
+        int result = Objects.hashCode(nameOrg);
+        result = 31 * result + Objects.hashCode(website);
         result = 31 * result + Objects.hashCode(positions);
         result = 31 * result + Objects.hashCode(periods);
         return result;
@@ -52,7 +59,8 @@ public class Organization {
     @Override
     public String toString() {
         return "Organization{" +
-                "homePage=" + homePage +
+                "nameOrg='" + nameOrg + '\'' +
+                ", website='" + website + '\'' +
                 ", positions=" + positions +
                 ", periods=" + periods +
                 '}';
@@ -66,12 +74,14 @@ public class Organization {
         return periods;
     }
 
-    public Link getHomePage() {
-        return homePage;
+    public String getnameOrg() {
+        return nameOrg;
     }
 
+    public String getWebsite() {
+        return website;
+    }
 
-    // Метод для добавления периода
     public void addPeriod(Period period) {
         periods.add(period);
     }
@@ -84,11 +94,11 @@ public class Organization {
         private String description;
 
         public Position(int startYear, Month startMonth, String title, String description) {
-            this(LocalDate.of(startYear, startMonth.getValue(), 1), LocalDate.now(), title, description);
+            this(DateUtil.of(startYear, startMonth), DateUtil.NOW, title, description);
         }
 
         public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
-            this(LocalDate.of(startYear, startMonth.getValue(), 1), LocalDate.of(endYear, endMonth.getValue(), 1), title, description);
+            this(DateUtil.of(startYear, startMonth), DateUtil.of(endYear, endMonth), title, description);
         }
 
         public Position(LocalDate startDate, LocalDate endDate, String title, String description) {
