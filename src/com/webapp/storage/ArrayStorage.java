@@ -3,6 +3,8 @@ package com.webapp.storage;
 import com.webapp.exception.StorageException;
 import com.webapp.model.Resume;
 
+import java.util.List;
+
 public class ArrayStorage extends AbstractArrayStorage{
 
     @Override
@@ -40,11 +42,7 @@ public class ArrayStorage extends AbstractArrayStorage{
     }
 
     @Override
-    public void save(Resume resume) {
-        if (size >= STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow");
-        }
-        storage[size] = resume;
-        size++;
+    protected List<Resume> doCopyAll() {
+        return List.of();
     }
 }

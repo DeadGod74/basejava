@@ -40,6 +40,11 @@ public class ListStorage extends AbstractStorage<Integer>{
     }
 
     @Override
+    protected List<Resume> doCopyAll() {
+        return List.of();
+    }
+
+    @Override
     public void clear() {
         list.clear();
     }
