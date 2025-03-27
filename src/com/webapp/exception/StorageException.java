@@ -1,10 +1,12 @@
 package com.webapp.exception;
 
+import java.io.IOException;
+
 public class StorageException extends RuntimeException {
     final private String uuid;
 
 
-    public StorageException(String message) {
+    public StorageException(String message, String name, IOException e) {
         super(message);
         this.uuid = null;
     }

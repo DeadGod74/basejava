@@ -75,4 +75,5 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     public abstract boolean isExist(SK searchKey);
 
+    protected abstract List<Resume> doCopyAll();
 }

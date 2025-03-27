@@ -23,6 +23,11 @@ public class MapStorage extends AbstractStorage<String> {
     }
 
     @Override
+    protected List<Resume> doCopyAll() {
+        return List.of();
+    }
+
+    @Override
     protected void doSave(Resume resume, String searchKey) {
         map.put(searchKey, resume);
     }
