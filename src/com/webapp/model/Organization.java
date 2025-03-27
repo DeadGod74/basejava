@@ -9,10 +9,12 @@ import java.util.Objects;
 public class Organization {
     private final Link homePage;
     private List<Position> positions = new ArrayList<>();
+    private List<Period> periods = new ArrayList<>();
 
     public Organization() {
         this.homePage = null;
         this.positions = new ArrayList<>();
+        this.periods = new ArrayList<>();
     }
 
     public Organization(String name, String url, Position... positions) {
@@ -22,6 +24,13 @@ public class Organization {
     public Organization(Link homePage, List<Position> positions) {
         this.homePage = homePage;
         this.positions = List.copyOf(positions);
+        this.periods = new ArrayList<>();
+    }
+
+    public Organization(Link homePage, List<Position> positions, List<Period> periods) {
+        this.homePage = homePage;
+        this.positions = List.copyOf(positions);
+        this.periods = List.copyOf(periods); // Инициализация списка периодов
     }
 
     @Override
@@ -29,13 +38,14 @@ public class Organization {
         if (o == null || getClass() != o.getClass()) return false;
 
         Organization that = (Organization) o;
-        return Objects.equals(homePage, that.homePage) && Objects.equals(positions, that.positions);
+        return Objects.equals(homePage, that.homePage) && Objects.equals(positions, that.positions) && Objects.equals(periods, that.periods);
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hashCode(homePage);
         result = 31 * result + Objects.hashCode(positions);
+        result = 31 * result + Objects.hashCode(periods);
         return result;
     }
 
@@ -44,8 +54,28 @@ public class Organization {
         return "Organization{" +
                 "homePage=" + homePage +
                 ", positions=" + positions +
+                ", periods=" + periods +
                 '}';
     }
+
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public List<Period> getPeriods() {
+        return periods;
+    }
+
+    public Link getHomePage() {
+        return homePage;
+    }
+
+
+    // Метод для добавления периода
+    public void addPeriod(Period period) {
+        periods.add(period);
+    }
+
 
     public static class Position {
         private final LocalDate startDate;
@@ -110,14 +140,4 @@ public class Organization {
                     '}';
         }
     }
-
-    public Iterable<? extends Position> getPositions() {
-        return positions;
-    }
-
-    public Link getHomePage() {
-        return homePage;
-    }
-
-
 }
