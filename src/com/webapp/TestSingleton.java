@@ -1,6 +1,6 @@
 package com.webapp;
 
-import com.webapp.model.SectionType;
+import com.webapp.model.TypeSection;
 
 public class TestSingleton {
     private static TestSingleton ourInstance = new TestSingleton();
@@ -18,7 +18,7 @@ public class TestSingleton {
         Singleton instance = Singleton.valueOf("INSTANCE");
         System.out.println(instance.name());
         System.out.println(instance.ordinal());
-        for(SectionType type: SectionType.values()) {
+        for(TypeSection type: TypeSection.values()) {
             System.out.println(type.getTitle());
         }
     }

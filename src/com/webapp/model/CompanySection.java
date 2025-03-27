@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SectionOrg extends Section{
+public class CompanySection extends Section{
     private List<Organization> organizations;
 
-    public SectionOrg() {
+    public CompanySection() {
         this.organizations = new ArrayList<>();
     }
 
-    public SectionOrg(List<Organization> organizations) {
+    public CompanySection(List<Organization> organizations) {
         this.organizations = organizations;
     }
 
@@ -23,7 +23,7 @@ public class SectionOrg extends Section{
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
-        SectionOrg that = (SectionOrg) o;
+        CompanySection that = (CompanySection) o;
         return Objects.equals(organizations, that.organizations);
     }
 

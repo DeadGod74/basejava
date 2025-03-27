@@ -5,14 +5,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class SectionList extends Section{
+public class ListSection extends Section{
     private final List<String> list;
 
-    public SectionList(String... list) {
+    public ListSection(String... list) {
         this(Arrays.asList(list));
     }
 
-    public SectionList(List<String> list) {
+    public ListSection(List<String> list) {
         this.list = list;
     }
 
@@ -28,8 +28,8 @@ public class SectionList extends Section{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SectionList)) return false;
-        SectionList section = (SectionList) o;
+        if (!(o instanceof ListSection)) return false;
+        ListSection section = (ListSection) o;
         return Objects.equals(list, section.list);
     }
 
