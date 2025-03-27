@@ -53,7 +53,7 @@ public class ResumeTest {
 
         List<Organization> experiences = resumes.get(0).getSections().get(TypeSection.EXPERIENCE).getContent();
         for (Organization organization : experiences) {
-            for (Position position : organization.getPositions()) {
+            for (Organization.Position position : organization.getPositions()) {
                 LocalDate startDate = position.getStartDate();
                 LocalDate endDate = position.getEndDate();
                 assertFalse(endDate.isBefore(startDate),
@@ -64,7 +64,7 @@ public class ResumeTest {
 
         List<Organization> educations = resumes.get(0).getSections().get(TypeSection.EDUCATION).getContent();
         for (Organization organization : educations) {
-            for (Position position : organization.getPositions()) {
+            for (Organization.Position position : organization.getPositions()) {
                 LocalDate startDate = position.getStartDate();
                 LocalDate endDate = position.getEndDate();
                 assertFalse(endDate.isBefore(startDate),
