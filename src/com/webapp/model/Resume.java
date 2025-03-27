@@ -27,7 +27,6 @@ public class Resume implements Comparable<Resume> {
         return sections.get(section);
     }
 
-    // Установка контакта
     public void setContact(ContactType contactType, String contactValue) {
         contacts.put(contactType, contactValue);
     }
