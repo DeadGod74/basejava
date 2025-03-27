@@ -29,10 +29,10 @@ public class ResumeTest {
             System.out.println("Full Name: " + resume.getFullName());
             System.out.println("Contacts: " + resume.getContacts());
 
-            for (SectionType sectionType : SectionType.values()) {
-                Section section = resume.getSections().get(sectionType);
+            for (TypeSection typeSection : TypeSection.values()) {
+                Section section = resume.getSections().get(typeSection);
                 if (section != null) {
-                    System.out.println(sectionType + ": " + section);
+                    System.out.println(typeSection + ": " + section);
                 }
             }
         }
@@ -42,16 +42,16 @@ public class ResumeTest {
         assertEquals("+1234567890", resumes.get(0).getContacts().get(ContactType.PHONE));
         assertEquals("johndoe@example.com", resumes.get(0).getContacts().get(ContactType.MAIL));
 
-        Section personalSection = resumes.get(0).getSections().get(SectionType.PERSONAL);
-        assertTrue(personalSection instanceof SectionText);
-        assertEquals("Ответственный, коммуникабельный", ((SectionText) personalSection).getText());
+        Section personalSection = resumes.get(0).getSections().get(TypeSection.PERSONAL);
+        assertTrue(personalSection instanceof TextSection);
+        assertEquals("Ответственный, коммуникабельный", ((TextSection) personalSection).getText());
 
-        Section objectiveSection = resumes.get(0).getSections().get(SectionType.OBJECTIVE);
-        assertTrue(objectiveSection instanceof SectionText);
-        assertEquals("Получение должности разработчика", ((SectionText) objectiveSection).getText());
+        Section objectiveSection = resumes.get(0).getSections().get(TypeSection.OBJECTIVE);
+        assertTrue(objectiveSection instanceof TextSection);
+        assertEquals("Получение должности разработчика", ((TextSection) objectiveSection).getText());
 
 
-        List<Organization> experiences = resumes.get(0).getSections().get(SectionType.EXPERIENCE).getContent();
+        List<Organization> experiences = resumes.get(0).getSections().get(TypeSection.EXPERIENCE).getContent();
         for (Organization organization : experiences) {
             for (Position position : organization.getPositions()) {
                 LocalDate startDate = position.getStartDate();
@@ -62,7 +62,7 @@ public class ResumeTest {
             }
         }
 
-        List<Organization> educations = resumes.get(0).getSections().get(SectionType.EDUCATION).getContent();
+        List<Organization> educations = resumes.get(0).getSections().get(TypeSection.EDUCATION).getContent();
         for (Organization organization : educations) {
             for (Position position : organization.getPositions()) {
                 LocalDate startDate = position.getStartDate();
