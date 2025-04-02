@@ -8,7 +8,7 @@ public enum TypeSection {
     EXPERIENCE("Опыт работы"),
     EDUCATION("Образование");
 
-    private String title;
+    private final String title;
 
     TypeSection(String title) {
         this.title = title;

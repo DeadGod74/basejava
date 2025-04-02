@@ -11,5 +11,5 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 
 public abstract class Section {
-    public abstract List<Organization> getContent();
+    public abstract List<Company> getContent();
 }

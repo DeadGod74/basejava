@@ -36,7 +36,7 @@ public class TextSection extends Section{
     }
 
     @Override
-    public List<Organization> getContent() {
+    public List<Company> getContent() {
         return Collections.emptyList();
     }
 }

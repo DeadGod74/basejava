@@ -40,15 +40,16 @@ public class Period {
         if (o == null || getClass() != o.getClass()) return false;
 
         Period period = (Period) o;
-        return Objects.equals(startDate, period.startDate) &&
-                Objects.equals(endDate, period.endDate) &&
-                Objects.equals(name, period.name) &&
-                Objects.equals(description, period.description);
+        return startDate.equals(period.startDate) && endDate.equals(period.endDate) && name.equals(period.name) && description.equals(period.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(startDate, endDate, name, description);
+        int result = startDate.hashCode();
+        result = 31 * result + endDate.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + description.hashCode();
+        return result;
     }
 
     @Override
