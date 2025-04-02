@@ -62,7 +62,7 @@ public class Company {
         return periods;
     }
 
-    public String getnameCompany() {
+    public String getNameCompany() {
         return companyName;
     }
 

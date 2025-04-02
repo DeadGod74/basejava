@@ -7,7 +7,7 @@ import java.util.Objects;
 public class CompanySection extends Section{
     private final List<Company> companies;
 
-    public CompanySection() {
+    public CompanySection(Company company) {
         this.companies = new ArrayList<>();
     }
 
