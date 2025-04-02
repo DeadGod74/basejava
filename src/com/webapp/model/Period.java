@@ -10,13 +10,16 @@ public class Period {
     private final String description;
 
     public Period(LocalDate startDate, LocalDate endDate, String name, String description) {
-        if (endDate.isBefore(startDate)) {
-            throw new IllegalArgumentException("endDate must not be before startDate");
-        }
         this.startDate = Objects.requireNonNull(startDate, "startDate must not be null");
         this.endDate = Objects.requireNonNull(endDate, "endDate must not be null");
         this.name = Objects.requireNonNull(name, "name must not be null");
-        this.description = Objects.requireNonNull(description, "description must not be null");
+
+        if (this.endDate.isBefore(this.startDate)) {
+            throw new IllegalArgumentException("endDate must not be before startDate");
+        }
+
+        // Устанавливаем значение по умолчанию для description
+        this.description = description != null ? description : ""; // Заменяем null на пустую строку
     }
 
     public LocalDate getStartDate() {
@@ -37,6 +40,7 @@ public class Period {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Period period = (Period) o;
