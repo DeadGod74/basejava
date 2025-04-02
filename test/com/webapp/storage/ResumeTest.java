@@ -50,26 +50,25 @@ public class ResumeTest {
         assertTrue(objectiveSection instanceof TextSection);
         assertEquals("Получение должности разработчика", ((TextSection) objectiveSection).getText());
 
-
-        List<Organization> experiences = resumes.get(0).getSections().get(TypeSection.EXPERIENCE).getContent();
-        for (Organization organization : experiences) {
-            for (Organization.Position position : organization.getPositions()) {
-                LocalDate startDate = position.getStartDate();
-                LocalDate endDate = position.getEndDate();
+        List<Company> experiences = resumes.get(0).getSections().get(TypeSection.EXPERIENCE).getContent();
+        for (Company organization : experiences) {
+            for (Period period : organization.getPeriods()) {
+                LocalDate startDate = period.getStartDate();
+                LocalDate endDate = period.getEndDate();
                 assertFalse(endDate.isBefore(startDate),
-                        String.format("End date %s is before start date %s for position %s at %s",
-                                endDate, startDate, position.getTitle(), organization.getnameOrg()));
+                        String.format("End date %s is before start date %s for period %s at %s",
+                                endDate, startDate, period.getName(), organization.getnameCompany()));
             }
         }
 
-        List<Organization> educations = resumes.get(0).getSections().get(TypeSection.EDUCATION).getContent();
-        for (Organization organization : educations) {
-            for (Organization.Position position : organization.getPositions()) {
-                LocalDate startDate = position.getStartDate();
-                LocalDate endDate = position.getEndDate();
+        List<Company> educations = resumes.get(0).getSections().get(TypeSection.EDUCATION).getContent();
+        for (Company organization : educations) {
+            for (Period period : organization.getPeriods()) {
+                LocalDate startDate = period.getStartDate();
+                LocalDate endDate = period.getEndDate();
                 assertFalse(endDate.isBefore(startDate),
                         String.format("End date %s is before start date %s for degree %s at %s",
-                                endDate, startDate, position.getTitle(), organization.getnameOrg()));
+                                endDate, startDate, period.getName(), organization.getnameCompany()));
             }
         }
         inputStream.close();

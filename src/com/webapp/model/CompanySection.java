@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.Objects;
 
 public class CompanySection extends Section{
-    private List<Organization> organizations;
+    private final List<Company> companies;
 
     public CompanySection() {
-        this.organizations = new ArrayList<>();
+        this.companies = new ArrayList<>();
     }
 
-    public CompanySection(List<Organization> organizations) {
-        this.organizations = organizations;
+    public CompanySection(List<Company> organizations) {
+        this.companies = organizations;
     }
 
-    public List<Organization> getOrganizations() {
-        return organizations;
+    public List<Company> getCompanies() {
+        return companies;
     }
 
     @Override
@@ -24,16 +24,16 @@ public class CompanySection extends Section{
         if (o == null || getClass() != o.getClass()) return false;
 
         CompanySection that = (CompanySection) o;
-        return Objects.equals(organizations, that.organizations);
+        return Objects.equals(companies, that.companies);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(organizations);
+        return Objects.hashCode(companies);
     }
 
     @Override
-    public List<Organization> getContent() {
-        return organizations;
+    public List<Company> getContent() {
+        return companies;
     }
 }
