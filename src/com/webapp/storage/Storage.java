@@ -21,9 +21,5 @@ public interface Storage {
 
     int size();
 
-    int getIndex(String uuid);
-
-    int getCapacity();
-
     List<Resume> getAllSorted();
 }

@@ -173,19 +173,4 @@ public abstract class AbstractStorageTest  {
         assertEquals(expected, actual);
     }
 
-    @org.junit.Test
-    public void fillStorage() throws Exception{
-        storage.clear();
-        int capacity = storage.getCapacity();
-        System.out.println("Filling storage with capacity: " + capacity);
-        int maxIterations = 100; // Максимальное количество итераций для отладки
-        int iterations = Math.min(capacity, maxIterations);
-        for (int i = 0; i < iterations; i++) {
-            System.out.println("Saving resume with uuid: " + i);
-            storage.save(new Resume("uuid" + i));
-        }
-        assertSize(iterations);
-        System.out.println("Finished filling storage.");
-
-    }
 }

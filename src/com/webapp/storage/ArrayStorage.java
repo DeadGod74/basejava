@@ -8,16 +8,6 @@ import java.util.List;
 public class ArrayStorage extends AbstractArrayStorage{
 
     @Override
-    public int getIndex(String uuid) {
-        return -1;
-    }
-
-    @Override
-    public int getCapacity() {
-        return storage.length;
-    }
-
-    @Override
     protected void fillDeletedElement(int index) {
         storage[index] = storage[size - 1];
     }

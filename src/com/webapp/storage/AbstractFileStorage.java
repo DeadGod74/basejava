@@ -27,10 +27,11 @@ public class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public void clear() {
         File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                doDelete(file);
-            }
+        if (files == null) {
+            throw new StorageException("Directory read error", null);
+        }
+        for (File file : files) {
+            doDelete(file);
         }
     }
 
@@ -46,16 +47,6 @@ public class AbstractFileStorage extends AbstractStorage<File> {
             throw new StorageException("Directory read error", null);
         }
         return list.length;
-    }
-
-    @Override
-    public int getIndex(String uuid) {
-        return 0;
-    }
-
-    @Override
-    public int getCapacity() {
-        return 0;
     }
 
     @Override

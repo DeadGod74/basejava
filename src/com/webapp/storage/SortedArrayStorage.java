@@ -38,8 +38,4 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         return List.of();
     }
 
-    @Override
-    public int getIndex(String uuid) {
-        return -1;
-    }
 }

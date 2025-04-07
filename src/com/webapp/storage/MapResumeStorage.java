@@ -74,18 +74,4 @@ public class MapResumeStorage extends AbstractStorage<Resume> {
         return map.size();
     }
 
-    @Override
-    public int getIndex(String uuid) {
-        for (Resume resume : map.keySet()) {
-            if (resume.getUuid().equals(uuid)) {
-                return new ArrayList<>(map.keySet()).indexOf(resume);
-            }
-        }
-        return -1;
-    }
-
-    @Override
-    public int getCapacity() {
-        return Integer.MAX_VALUE;
-    }
 }

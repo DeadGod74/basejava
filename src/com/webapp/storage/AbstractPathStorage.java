@@ -49,16 +49,6 @@ public class AbstractPathStorage extends AbstractStorage<Path> {
     }
 
     @Override
-    public int getIndex(String uuid) {
-        return 0;
-    }
-
-    @Override
-    public int getCapacity() {
-        return 0;
-    }
-
-    @Override
     public Path getSearchKey(String uuid) {
         return directory.resolve(uuid);
     }

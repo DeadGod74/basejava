@@ -17,10 +17,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
         return size;
     }
 
-    @Override
-    public int getCapacity() {
-        return STORAGE_LIMIT;
-    }
 
     @Override
     protected void doSave(Resume resume, Integer index) {
