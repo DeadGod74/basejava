@@ -5,8 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 
 import static org.junit.Assert.*;
@@ -19,12 +18,27 @@ public class AbstractFileStorageTest {
     @Before
     public void setUp() throws IOException {
         tempDir = Files.createTempDirectory("storageTest").toFile();
-        storage = new AbstractFileStorage(tempDir) {};
+        storage = new AbstractFileStorage(tempDir, new Serialization() {
+            @Override
+            public void doWrite(Resume r, OutputStream os) throws IOException {
+                ObjectOutputStream oos = new ObjectOutputStream(os);
+                oos.writeObject(r);
+            }
+
+            @Override
+            public Resume doRead(InputStream is) throws IOException {
+                ObjectInputStream ois = new ObjectInputStream(is);
+                try {
+                    return (Resume) ois.readObject();
+                } catch (ClassNotFoundException e) {
+                    throw new IOException("Class not found", e);
+                }
+            }
+        }) {};
     }
 
     @After
     public void tearDown() {
-        // Удаляем временную директорию после тестов
         for (File file : tempDir.listFiles()) {
             file.delete();
         }
