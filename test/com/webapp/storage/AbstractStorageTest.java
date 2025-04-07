@@ -6,6 +6,7 @@ import com.webapp.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import static org.junit.Assert.*;
 public abstract class AbstractStorageTest  {
 
     protected final Storage storage;
+    protected static final File FILE_PATH = new File("/Users/deadgod/IdeaProjects/basejava/storage");
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
@@ -66,6 +68,7 @@ public abstract class AbstractStorageTest  {
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
+
 
     @Before
     public void setUp() throws Exception {

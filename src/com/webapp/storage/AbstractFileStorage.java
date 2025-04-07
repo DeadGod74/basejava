@@ -3,17 +3,18 @@ package com.webapp.storage;
 import com.webapp.exception.StorageException;
 import com.webapp.model.Resume;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class AbstractFileStorage extends AbstractStorage<File> {
     private final File directory;
+    protected Serialization serializable;
 
-    protected AbstractFileStorage(File directory) {
+    protected AbstractFileStorage(File directory, Serialization serializable) {
         Objects.requireNonNull(directory, "directory must not be null");
+        this.serializable = serializable;
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
         }
@@ -65,7 +66,7 @@ public class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doUpdate(Resume r, File file) {
         try {
-            doWrite(r, file);
+            serializable.doWrite(r, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File write error", r.getUuid(), e);
         }
@@ -86,18 +87,10 @@ public class AbstractFileStorage extends AbstractStorage<File> {
         doUpdate(r, file);
     }
 
-    protected void doWrite(Resume r, File file) throws IOException {
-
-    }
-
-    protected Resume doRead(File file) throws IOException {
-        return null;
-    }
-
     @Override
     protected Resume doGet(File file) {
         try {
-            return doRead(file);
+            return serializable.doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File read error", file.getName(), e);
         }
