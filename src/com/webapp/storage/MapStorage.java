@@ -66,13 +66,4 @@ public class MapStorage extends AbstractStorage<String> {
         return map.size();
     }
 
-    @Override
-    public int getIndex(String uuid) {
-        return -1;
-    }
-
-    @Override
-    public int getCapacity() {
-        return 0;
-    }
 }

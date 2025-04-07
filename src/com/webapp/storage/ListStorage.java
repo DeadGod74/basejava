@@ -68,11 +68,6 @@ public class ListStorage extends AbstractStorage<Integer>{
     }
 
     @Override
-    public int getIndex(String uuid) {
-        return -1;
-    }
-
-    @Override
     public Integer getSearchKey(String uuid) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getUuid().equals(uuid)) {
@@ -82,8 +77,4 @@ public class ListStorage extends AbstractStorage<Integer>{
         return null;
     }
 
-    @Override
-    public int getCapacity() {
-        return Integer.MAX_VALUE;
-    }
 }

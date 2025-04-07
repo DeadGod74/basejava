@@ -46,16 +46,6 @@ public class ObjectStreamStorageTest extends AbstractStorageTest{
             }
 
             @Override
-            public int getIndex(String uuid) {
-                return 0;
-            }
-
-            @Override
-            public int getCapacity() {
-                return 0;
-            }
-
-            @Override
             public List<Resume> getAllSorted() {
                 return List.of();
             }
