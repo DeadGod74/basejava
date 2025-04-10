@@ -54,7 +54,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     public final List<Resume> getAll() {
-        List<Resume> resumes = new ArrayList<>(size); // Создаем новый список
+        List<Resume> resumes = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             resumes.add(storage[i]);
         }

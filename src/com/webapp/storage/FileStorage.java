@@ -47,10 +47,9 @@ public class FileStorage extends AbstractStorage<File> {
 
         List<Resume> resumes = new ArrayList<>();
         for (File file : files) {
-            resumes.add(doGet(file)); // Получаем резюме из файла и добавляем в список
+            resumes.add(doGet(file));
         }
 
-        // Сортируем список резюме по полному имени
         resumes.sort(Comparator.comparing(Resume::getFullName));
 
         return resumes;
