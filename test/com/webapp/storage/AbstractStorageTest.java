@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -78,12 +77,12 @@ public abstract class AbstractStorageTest  {
         storage.save(RESUME_3);
     }
 
-    private void assertSize(int size) {
-        assertEquals(size, storage.size());
-    }
-
     private void assertGet(Resume resume) {
         assertEquals(resume, storage.get(resume.getUuid()));
+    }
+
+    private void assertSize(int size) {
+        assertEquals(size, storage.size());
     }
 
     @Test
@@ -102,15 +101,15 @@ public abstract class AbstractStorageTest  {
 
     @Test
     public void getAllSorted() throws Exception {
-        List<Resume> expected = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
-        Collections.sort(expected);
-        List<Resume> actual = storage.getAllSorted();
-        assertEquals(expected, actual);
+        List<Resume> list = storage.getAllSorted();
+        assertEquals(3, list.size());
+        assertEquals(list, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
     }
 
 
     @Test
     public void save() {
+        //System.out.println(RESUME_4);
         storage.save(RESUME_4);
         assertSize(4);
         assertGet(RESUME_4);
@@ -118,21 +117,22 @@ public abstract class AbstractStorageTest  {
 
     @Test
     public void delete() {
+        storage.delete(RESUME_1.getUuid());
+        assertSize(2);
+        assertThrows(NotExistStorageException.class, () -> storage.get(RESUME_1.getUuid()));
     }
 
     @Test
-    public void update() {
-        Resume updatedResume = new Resume(RESUME_1.getUuid());
-        System.out.println(updatedResume);
-        updatedResume.setName("Updated Name");
-        storage.update(updatedResume);
-        assertGet(updatedResume);
+    public void update() throws Exception {
+        Resume newResume = new Resume(UUID_1, "New Name");
+        storage.update(newResume);
+        assertTrue(newResume.equals(storage.get(UUID_1)));
     }
 
     @Test
     public void doSave() {
+        assertSize(3);
         storage.delete(RESUME_1.getUuid());
-        System.out.println("Size after deletion: " + storage.size());
         assertSize(2);
         assertThrows(NotExistStorageException.class, () -> storage.get(RESUME_1.getUuid()));
     }
