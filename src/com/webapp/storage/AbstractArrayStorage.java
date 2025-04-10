@@ -17,13 +17,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
         return size;
     }
 
-
     @Override
     protected void doSave(Resume resume, Integer index) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else {
-            insertElement(resume, size);
+            insertElement(resume, index);
             size++;
         }
     }
@@ -31,7 +30,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     @Override
     public void doDelete(Integer index) {
         if (index < 0 || index >= size) {
-            throw new StorageException("Invalid index for deletion", null);
+            throw new StorageException("Invalid index for deletion", (String) null);
         }
         fillDeletedElement(index);
         storage[size - 1] = null;
@@ -55,7 +54,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     public final List<Resume> getAll() {
-        List<Resume> resumes = new ArrayList<>(size); // Создаем новый список
+        List<Resume> resumes = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             resumes.add(storage[i]);
         }

@@ -1,17 +1,11 @@
-package com.webapp.storage;
+package com.webapp.storage.serializer;
 
 import com.webapp.exception.StorageException;
 import com.webapp.model.Resume;
 
 import java.io.*;
 
-public abstract class ObjectStreamStorage implements Storage, Serialization {
-
-    private File file;
-
-    public ObjectStreamStorage(File filePath) {
-        this.file = new File(String.valueOf(filePath));
-    }
+public class ObjectStreamStorage implements Serialization {
 
     @Override
     public void doWrite(Resume r, OutputStream os) throws IOException {

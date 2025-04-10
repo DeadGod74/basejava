@@ -55,8 +55,7 @@ public class Resume implements Comparable<Resume>, Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Resume)) return false;
-        Resume resume = (Resume) o;
+        if (!(o instanceof Resume resume)) return false;
         return uuid.equals(resume.uuid);
     }
 
@@ -83,7 +82,7 @@ public class Resume implements Comparable<Resume>, Serializable {
 
     @Override
     public String toString() {
-        return "Resume{ uuid=" + uuid + ", fullName=" + fullName + " }";
+        return "Resume{ uuid= " + uuid + ", fullName= " + fullName + " }";
     }
 
     public void setName(String updatedName) {
