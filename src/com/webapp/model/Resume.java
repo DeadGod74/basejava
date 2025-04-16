@@ -1,9 +1,14 @@
 package com.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Resume implements Comparable<Resume>, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -55,13 +60,28 @@ public class Resume implements Comparable<Resume>, Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Resume resume)) return false;
-        return uuid.equals(resume.uuid);
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Resume resume = (Resume) o;
+        return Objects.equals(uuid, resume.uuid) &&
+                Objects.equals(fullName, resume.fullName) &&
+                Objects.equals(contacts, resume.contacts) &&
+                Objects.equals(sections, resume.sections);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid);
+        return Objects.hash(uuid, fullName, contacts, sections);
+    }
+
+    @Override
+    public String toString() {
+        return "Resume{" +
+                "uuid='" + uuid + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", contacts=" + contacts +
+                ", sections=" + sections +
+                '}';
     }
 
     public String getUuid() {
@@ -80,16 +100,20 @@ public class Resume implements Comparable<Resume>, Serializable {
         this.uuid = uuid;
     }
 
-    @Override
-    public String toString() {
-        return "Resume{ uuid= " + uuid + ", fullName= " + fullName + " }";
-    }
-
     public void setName(String updatedName) {
         this.fullName = updatedName;
     }
 
     public String getName() {
         return fullName;
+    }
+
+
+    public void addContact(ContactType type, String value) {
+        contacts.put(type, value);
+    }
+
+    public void addSection(TypeSection type, Section section) {
+        sections.put(type, section);
     }
 }

@@ -13,7 +13,9 @@ import org.junit.runners.Suite;
                 SortedArrayStorageTest.class,
                 AbstractArrayStorageTest.class,
                 FileStorageTest.class,
-                PathStorageTest.class
+                PathStorageTest.class,
+                JsonPathStorageTest.class,
+                DataStreamSerializerTest.class
         })
 public class AllStorageTest {
 }
