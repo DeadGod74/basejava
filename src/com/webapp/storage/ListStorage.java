@@ -76,5 +76,4 @@ public class ListStorage extends AbstractStorage<Integer>{
         }
         return null;
     }
-
 }
