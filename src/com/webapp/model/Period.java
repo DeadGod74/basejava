@@ -1,14 +1,22 @@
 package com.webapp.model;
 
+import com.webapp.util.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Period implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private final LocalDate startDate;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private final LocalDate endDate;
     private final String name;
     private final String description;
@@ -22,8 +30,7 @@ public class Period implements Serializable {
             throw new IllegalArgumentException("endDate must not be before startDate");
         }
 
-        // Устанавливаем значение по умолчанию для description
-        this.description = description != null ? description : ""; // Заменяем null на пустую строку
+        this.description = description != null ? description : "";
     }
 
     public LocalDate getStartDate() {
