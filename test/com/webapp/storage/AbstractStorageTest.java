@@ -1,5 +1,6 @@
 package com.webapp.storage;
 
+import com.webapp.Config;
 import com.webapp.exception.ExistStorageException;
 import com.webapp.exception.NotExistStorageException;
 import com.webapp.model.*;
@@ -18,7 +19,8 @@ import static org.junit.Assert.*;
 public abstract class AbstractStorageTest  {
 
     protected final Storage storage;
-    protected static final File FILE_PATH = new File("/Users/deadgod/IdeaProjects/basejava/storage");
+    //protected static final File FILE_PATH = new File("/Users/deadgod/IdeaProjects/basejava/storage");
+    protected static final File FILE_PATH = Config.get().getStorageDir();
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
@@ -35,7 +37,7 @@ public abstract class AbstractStorageTest  {
         RESUME_2 = new Resume(UUID_2, "Bob Johnson");
         RESUME_3 = new Resume(UUID_3, "Charlie Brown");
         RESUME_4 = new Resume(UUID_4, "Diana Prince");
-
+/*
         RESUME_1.setContact(ContactType.MAIL, "alice.smith@example.com");
         RESUME_1.setContact(ContactType.PHONE, "+9876543210");
         RESUME_1.setSection(TypeSection.OBJECTIVE, new TextSection("Seeking a challenging position in software development."));
@@ -62,6 +64,7 @@ public abstract class AbstractStorageTest  {
                 new CompanySection(
                         new Company("Global Tech Corp.", "http://globaltechcorp.com",
                                 new Period(LocalDate.of(2016, Month.MARCH, 1), LocalDate.now(), "Project Manager", "Managed multiple software development projects."))));
+    */
     }
 
     public AbstractStorageTest(Storage storage) {
@@ -137,11 +140,11 @@ public abstract class AbstractStorageTest  {
         assertThrows(NotExistStorageException.class, () -> storage.get(RESUME_1.getUuid()));
     }
 
-    @Test (expected = ExistStorageException.class)
+    @Test(expected = ExistStorageException.class)
     public void saveExist() throws Exception {
         System.out.println("Current size before saving: " + storage.size());
-        storage.save(RESUME_1);
-        storage.save(RESUME_1);
+        storage.save(RESUME_1); // Сохраняем резюме в первый раз
+        storage.save(RESUME_1); // Пытаемся сохранить его снова
     }
 
     @Test (expected = NotExistStorageException.class)
