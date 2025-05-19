@@ -1,8 +1,6 @@
 package com.webapp.storage;
 
-import com.webapp.exception.ExistStorageException;
 import com.webapp.exception.NotExistStorageException;
-import com.webapp.exception.StorageException;
 import com.webapp.model.Resume;
 import com.webapp.sql.ConnectionFactory;
 import com.webapp.sql.SqlHelper;
@@ -51,19 +49,8 @@ public class SqlStorage implements Storage {
         });
     }
 
-    public boolean exists(String uuid) {
-        return sqlHelper.execute("SELECT COUNT(*) FROM resume WHERE uuid = ?", ps -> {
-            ps.setString(1, uuid);
-            ResultSet rs = ps.executeQuery();
-            return rs.next() && rs.getInt(1) > 0;
-        });
-    }
-
     @Override
     public void save(Resume r) {
-        if (exists(r.getUuid())) {
-            throw new ExistStorageException(r.getUuid());
-        }
         sqlHelper.execute("INSERT INTO resume (uuid, full_name) VALUES (?, ?)", ps -> {
             ps.setString(1, r.getUuid());
             ps.setString(2, r.getFullName());
@@ -85,7 +72,7 @@ public class SqlStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        return sqlHelper.execute("SELECT TRIM(uuid) AS uuid, TRIM(full_name) AS full_name FROM resume ORDER BY full_name", ps -> {
+        return sqlHelper.execute("SELECT * FROM resume ORDER BY full_name", ps -> {
             ResultSet rs = ps.executeQuery();
             List<Resume> resumes = new ArrayList<>();
             while (rs.next()) {
@@ -97,7 +84,7 @@ public class SqlStorage implements Storage {
 
     @Override
     public List<Resume> getAll() {
-        return sqlHelper.execute("SELECT TRIM(uuid) AS uuid, TRIM(full_name) AS full_name FROM resume", ps -> {
+        return sqlHelper.execute("SELECT * FROM resume", ps -> {
             ResultSet rs = ps.executeQuery();
             List<Resume> resumes = new ArrayList<>();
             while (rs.next()) {

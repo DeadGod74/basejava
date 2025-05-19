@@ -13,6 +13,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -21,10 +22,10 @@ public abstract class AbstractStorageTest  {
     protected final Storage storage;
     //protected static final File FILE_PATH = new File("/Users/deadgod/IdeaProjects/basejava/storage");
     protected static final File FILE_PATH = Config.get().getStorageDir();
-    private static final String UUID_1 = "uuid1";
-    private static final String UUID_2 = "uuid2";
-    private static final String UUID_3 = "uuid3";
-    private static final String UUID_4 = "uuid4";
+    private static final String UUID_1 = UUID.randomUUID().toString();
+    private static final String UUID_2 = UUID.randomUUID().toString();
+    private static final String UUID_3 = UUID.randomUUID().toString();
+    private static final String UUID_4 = UUID.randomUUID().toString();
     private static final Resume RESUME_1;
     private static final Resume RESUME_2;
     private static final Resume RESUME_3;
@@ -143,8 +144,8 @@ public abstract class AbstractStorageTest  {
     @Test(expected = ExistStorageException.class)
     public void saveExist() throws Exception {
         System.out.println("Current size before saving: " + storage.size());
-        storage.save(RESUME_1); // Сохраняем резюме в первый раз
-        storage.save(RESUME_1); // Пытаемся сохранить его снова
+        storage.save(RESUME_1);
+        storage.save(RESUME_1);
     }
 
     @Test (expected = NotExistStorageException.class)
