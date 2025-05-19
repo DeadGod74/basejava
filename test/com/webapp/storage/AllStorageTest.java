@@ -18,5 +18,6 @@ import org.junit.runners.Suite;
                 DataStreamSerializerTest.class,
                 SqlStorageTest.class
         })
+
 public class AllStorageTest {
 }
