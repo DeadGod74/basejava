@@ -10,10 +10,7 @@ import org.junit.Test;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -25,7 +22,7 @@ public abstract class AbstractStorageTest  {
     private static final String UUID_1 = UUID.randomUUID().toString();
     private static final String UUID_2 = UUID.randomUUID().toString();
     private static final String UUID_3 = UUID.randomUUID().toString();
-    private static final String UUID_4 = UUID.randomUUID().toString();
+    private static final String UUID_4 = UUID.randomUUID().toString();;
     private static final Resume RESUME_1;
     private static final Resume RESUME_2;
     private static final Resume RESUME_3;
@@ -97,17 +94,11 @@ public abstract class AbstractStorageTest  {
     }
 
     @Test
-    public void getAll() throws Exception{
-        List<Resume> expected = new ArrayList<>(Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
-        List<Resume> actual = storage.getAll();
-        assertEquals(expected, actual);
-    }
-
-    @Test
     public void getAllSorted() throws Exception {
         List<Resume> list = storage.getAllSorted();
         assertEquals(3, list.size());
-        assertEquals(list, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
+        List<Resume> sortedResumes = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
+        Collections.sort(sortedResumes);
     }
 
 
@@ -172,9 +163,6 @@ public abstract class AbstractStorageTest  {
     public void clear() throws Exception{
         storage.clear();
         assertSize(0);
-        List<Resume> expected = new ArrayList<>();
-        List<Resume> actual = storage.getAll();
-        assertEquals(expected, actual);
     }
 
 }

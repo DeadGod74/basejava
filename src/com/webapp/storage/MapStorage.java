@@ -47,13 +47,6 @@ public class MapStorage extends AbstractStorage<String> {
         map.clear();
     }
 
-    @Override
-    public List<Resume> getAll() {
-        List<Resume> sortedList = new ArrayList<>(map.values());
-        Collections.sort(sortedList);
-        return sortedList;
-    }
-
     public List<Resume> getAllSorted() {
         return map.values().stream()
                 .sorted(Comparator.comparing(Resume::getFullName)

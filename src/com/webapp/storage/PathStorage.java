@@ -37,13 +37,6 @@ public class PathStorage extends AbstractStorage<Path> {
     }
 
     @Override
-    public List<Resume> getAll() {
-        List<Resume> resumes = doCopyAll();
-        resumes.sort(Comparator.comparing(Resume::getFullName));
-        return resumes;
-    }
-
-    @Override
     public int size() {
         return (int) getFilesList().count();
     }

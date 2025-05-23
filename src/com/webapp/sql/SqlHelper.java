@@ -15,22 +15,32 @@ public class SqlHelper {
         this.connectionFactory = connectionFactory;
     }
 
-    public <T> T execute(String query, SqlExecutor<T> executor) {
+    public void execute(String sql) {
+        execute(sql, PreparedStatement::execute);
+    }
+
+    public <T> T execute(String sql, SqlExecutor<T> executor) {
         try (Connection conn = connectionFactory.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             return executor.execute(ps);
-        } catch (PSQLException e) {
-            // Обработка специфичных ошибок PostgreSQL
-            if ("23505".equals(e.getSQLState())) { // Код состояния для дублирования ключа
-                throw new ExistStorageException("Duplicate key error", e);
-            }
-            throw new StorageException(e);
         } catch (SQLException e) {
-            throw new StorageException(e);
+            throw ExceptionUtil.convertException(e);
         }
     }
 
-    public interface SqlExecutor<T> {
-        T execute(PreparedStatement ps) throws SQLException;
+    public <T> T transactionalExecute(SqlTransaction<T> executor) {
+        try (Connection conn = connectionFactory.getConnection()) {
+            try {
+                conn.setAutoCommit(false);
+                T res = executor.execute(conn);
+                conn.commit();
+                return res;
+            } catch (SQLException e) {
+                conn.rollback();
+                throw ExceptionUtil.convertException(e);
+            }
+        } catch (SQLException e) {
+            throw new StorageException(e);
+        }
     }
 }

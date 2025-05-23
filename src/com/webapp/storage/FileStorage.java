@@ -35,16 +35,6 @@ public class FileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    public List<Resume> getAll() {
-        List<Resume> resumes = new ArrayList<>();
-        for (File file : getFiles()) {
-            resumes.add(doGet(file));
-        }
-        resumes.sort(Comparator.comparing(Resume::getFullName));
-        return resumes;
-    }
-
-    @Override
     public int size() {
         return getFiles().length;
     }
