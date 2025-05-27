@@ -89,7 +89,6 @@ public class SqlStorage implements Storage {
     @Override
     public List<Resume> getAllSorted() {
         Map<String, Resume> map = new LinkedHashMap<>();
-
         List<Resume> resumes = sqlHelper.execute("SELECT * FROM resume ORDER BY full_name, uuid",
                 ps -> {
                     try (ResultSet rs = ps.executeQuery()) {
@@ -121,7 +120,6 @@ public class SqlStorage implements Storage {
                         return null;
                     });
         }
-
         return resumes;
     }
 
